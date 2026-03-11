@@ -1,0 +1,318 @@
+/* =========================================================
+   Wedding Invitation — Styles
+
+   Scaling approach:
+   - Card is fixed at 398×561px (aspect-ratio 105:148)
+   - JS applies `zoom` to fit the viewport (min of width/height fit)
+   - All element positions/sizes use % of card → scale with zoom
+   - All font-sizes are fixed px (designed for 398px) → scale with zoom
+   - Zoom re-renders text at target size (unlike transform:scale)
+
+   Page layout:
+   - Each .page-wrap is 100vh (set by JS to exact px)
+   - scroll-snap gives page-by-page navigation
+   ========================================================= */
+
+/* ---- Reset ---- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #c8bf9e;
+  margin: 0;
+  padding: 0;
+}
+
+.snap-container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+/* ---- Fonts ---- */
+@font-face {
+  font-family: 'Kompot Display';
+  src: url('fonts/kompot-display.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inters';
+  src: url('fonts/inters.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Calmius';
+  src: url('fonts/calmius.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Calmius';
+  src: url('fonts/calmius-bold.woff2') format('woff2');
+  font-weight: bold; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Rockstone';
+  src: url('fonts/rockstone.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+
+.f-kompot    { font-family: 'Kompot Display', 'Marck Script', cursive; }
+.f-inters    { font-family: 'Inters', 'Cormorant Garamond', serif; }
+.f-calmius   { font-family: 'Calmius', 'Cormorant Garamond', serif; }
+.f-rockstone { font-family: 'Rockstone', 'Playfair Display SC', serif; }
+
+/* ---- Page wrapper (one per screen) ---- */
+.page-wrap {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ---- Card (fixed size, zoom-scaled by JS) ---- */
+.card {
+  position: relative;
+  width: 398px;
+  aspect-ratio: 105 / 148;
+  background: #fff9e8;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.12);
+  border-radius: 2px;
+}
+
+/* ---- Inner border frame ---- */
+.frame {
+  position: absolute;
+  background: #fffdf7;
+  border: 1px solid #33371e;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ---- Image elements ---- */
+.el {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  line-height: 0;
+  overflow: hidden;
+}
+.el img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+}
+
+/* ---- Text elements ---- */
+.txt {
+  position: absolute;
+  z-index: 10;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: visible;
+  line-height: 1.4;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- RSVP trigger (on page 2) ---- */
+.rsvp-trigger {
+  pointer-events: auto !important;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  text-decoration: none;
+  animation: rsvp-pulse 2.5s ease-in-out infinite;
+}
+.rsvp-trigger:hover,
+.rsvp-trigger:focus-visible {
+  opacity: 0.7;
+  animation: none;
+}
+
+/* ---- Flower sway animation ---- */
+.sway {
+  transform-origin: bottom center;
+}
+.sway-1 { animation: sway 5s ease-in-out infinite; }
+.sway-2 { animation: sway 6s ease-in-out -2s infinite; }
+.sway-3 { animation: sway 4.5s ease-in-out -1s infinite; }
+.sway-4 { animation: sway 5.5s ease-in-out -3.5s infinite; }
+.sway-5 { animation: sway 7s ease-in-out -1.5s infinite; }
+
+@keyframes sway {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: 1.5deg; }
+  75% { rotate: -1.5deg; }
+}
+
+@keyframes rsvp-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* =============================================================
+   RSVP Modal — dark theme, DocuSign-style pill inputs
+   ============================================================= */
+.rsvp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.rsvp-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rsvp-modal {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.rsvp-overlay.active .rsvp-modal {
+  transform: translateY(0);
+}
+
+.rsvp-close {
+  position: absolute;
+  top: 12px; right: 16px;
+  background: none; border: none;
+  font-size: 28px; color: #ccc;
+  cursor: pointer; line-height: 1; padding: 4px;
+}
+.rsvp-close:hover { opacity: 0.6; }
+
+.rsvp-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  color: #eee;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+  font-weight: normal;
+  border-bottom: 1px solid #444;
+  padding-bottom: 16px;
+}
+
+/* Letter-style flowing text */
+.rsvp-letter {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: #e0e0e0;
+  line-height: 2.4;
+}
+.rsvp-letter p { margin: 0 0 10px; }
+
+.rsvp-extra-label {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: #e0e0e0;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+/* Pill-shaped inline inputs */
+.rsvp-inline {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 14px;
+  color: #e0e0e0;
+  background: #333;
+  border: 1px solid #555;
+  border-radius: 20px;
+  padding: 4px 14px;
+  outline: none;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  vertical-align: baseline;
+  min-width: 60px;
+  box-sizing: border-box;
+}
+.rsvp-inline:hover { background: #444; }
+.rsvp-inline:focus {
+  background: #2a2a2a;
+  border-color: #7aafef;
+  box-shadow: 0 0 0 2px rgba(122,175,239,0.3);
+}
+.rsvp-inline::placeholder { color: #888; }
+
+input.rsvp-inline { width: auto; }
+input.rsvp-inline.rsvp-name-main { width: 100%; max-width: 250px; }
+
+select.rsvp-inline {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 22px;
+  background-color: #333;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23999'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+}
+select.rsvp-inline:hover { background-color: #444; }
+select.rsvp-inline:focus {
+  background-color: #2a2a2a;
+  border-color: #7aafef;
+  box-shadow: 0 0 0 2px rgba(122,175,239,0.3);
+}
+
+#guest-names-inline { display: inline; }
+
+/* Submit button */
+.rsvp-submit {
+  display: block;
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: #1a1a1a;
+  background: #e0e0e0;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+.rsvp-submit:hover { background: #fff; }
+.rsvp-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.rsvp-status {
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 14px;
+  margin-top: 12px;
+  min-height: 20px;
+}
+.rsvp-status.success { color: #66bb6a; }
+.rsvp-status.error   { color: #ef5350; }
