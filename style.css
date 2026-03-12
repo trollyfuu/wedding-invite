@@ -128,7 +128,8 @@ body {
 /* ---- Venue link (page 1) ---- */
 .venue-link {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
   pointer-events: auto;
   animation: venue-pulse 2.5s ease-in-out infinite;
 }
@@ -147,7 +148,8 @@ body {
   pointer-events: auto !important;
   cursor: pointer;
   transition: opacity 0.2s;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
   animation: rsvp-pulse 2.5s ease-in-out infinite;
 }
 .rsvp-trigger:hover,
