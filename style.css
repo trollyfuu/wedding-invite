@@ -349,7 +349,7 @@ select.rsvp-inline:focus {
   display: block;
 }
 @media (orientation: landscape) {
-  .page-wrap { position: relative; }
+  .page-wrap { position: relative; overflow: hidden; }
   .side-leaf { display: block; }
 }
 
