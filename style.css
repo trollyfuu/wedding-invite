@@ -344,12 +344,12 @@ select.rsvp-inline:focus {
   z-index: 0;
 }
 .side-leaf img {
-  width: 100%;
   height: 100%;
+  width: auto;
   display: block;
 }
 @media (orientation: landscape) {
-  .page-wrap { position: relative; overflow: hidden; }
+  .page-wrap { position: relative; }
   .side-leaf { display: block; }
 }
 
