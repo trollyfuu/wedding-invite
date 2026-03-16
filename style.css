@@ -336,3 +336,20 @@ select.rsvp-inline:focus {
 .rsvp-status.success { color: #66bb6a; }
 .rsvp-status.error   { color: #ef5350; }
 
+/* ---- Landscape side leaves ---- */
+.side-leaf {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+.side-leaf img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+@media (orientation: landscape) {
+  .page-wrap { position: relative; overflow: hidden; }
+  .side-leaf { display: block; }
+}
+
