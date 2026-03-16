@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Свадьба Арины и Владислава</title>
-  <link rel="stylesheet" href="style.css?v=130">
+  <link rel="stylesheet" href="style.css?v=131">
 </head>
 <body>
 
@@ -60,15 +60,8 @@
       <div class="txt f-rockstone" style="left:29.329%;top:57.732%;width:41.342%;height:5.081%;color:#e2274e;font-size:13.4px;text-align:center;letter-spacing:0.10em;text-transform:none">28 АВГУСТА<br>2026</div>
       <div class="txt f-inters" style="left:25.292%;top:68.212%;width:49.416%;height:4.861%;color:#33371e;font-size:11.7px;text-align:center;letter-spacing:0.10em"><a href="https://www.chateauiveri.ge/ru" target="_blank" class="venue-link">Шато Ивери, Батуми<br>Грузия</a></div>
     </div>
-    <!-- Side flowers page 1 (landscape only) -->
-    <div class="side-decor">
-      <div class="el sway sway-2" style="left:-80%;top:-10%;width:40%;height:28.8%;transform:scaleX(-1)"><img src="assets/final_p1_el2.png" alt=""></div>
-      <div class="el sway sway-4" style="left:-80%;top:35%;width:27.3%;height:55.4%;transform:scaleX(-1)"><img src="assets/final_p1_el11.png" alt=""></div>
-      <div class="el sway sway-1" style="left:-60%;top:72%;width:22.9%;height:15.4%"><img src="assets/final_p1_el15.png" alt=""></div>
-      <div class="el sway sway-3" style="left:160%;top:8%;width:22.1%;height:36.2%;transform:scaleX(-1) rotate(20deg)"><img src="assets/final_p1_el3.png" alt=""></div>
-      <div class="el sway sway-5" style="left:160%;top:42%;width:17.6%;height:39.7%"><img src="assets/final_p1_el6.png" alt=""></div>
-      <div class="el sway sway-2" style="left:160%;top:68%;width:37.3%;height:26.2%;transform:scaleX(-1)"><img src="assets/final_p1_el10.png" alt=""></div>
-    </div>
+
+
   </section>
 
   <!-- ============ PAGE 2 ============ -->
@@ -119,14 +112,8 @@
       <!-- Text: dress code -->
       <div class="txt f-inters" style="left:15.919%;top:75.225%;width:64.884%;height:4.273%;color:#33371e;font-size:10.2px;text-align:center;letter-spacing:0.10em">Мы будем рады, если вы поддержите цвета нашей свадьбы</div>
     </div>
-    <!-- Side flowers page 2 (landscape only) -->
-    <div class="side-decor">
-      <div class="el sway sway-3" style="left:-80%;top:-2%;width:27.3%;height:55.4%;transform:scaleX(-1) rotate(-180deg)"><img src="assets/final_p2_el1.png" alt=""></div>
-      <div class="el sway sway-5" style="left:-60%;top:65%;width:22.1%;height:36.2%;transform:scaleX(-1) rotate(20deg)"><img src="assets/final_p2_el2.png" alt=""></div>
-      <div class="el sway sway-1" style="left:160%;top:-2%;width:27.3%;height:55.4%;transform:rotate(-180deg)"><img src="assets/final_p2_el1.png" alt=""></div>
-      <div class="el sway sway-4" style="left:160%;top:36%;width:17.6%;height:39.7%;transform:rotate(-10deg)"><img src="assets/final_p2_el22.png" alt=""></div>
-      <div class="el sway sway-2" style="left:160%;top:72%;width:22.1%;height:36.2%;transform:rotate(20deg)"><img src="assets/final_p2_el2.png" alt=""></div>
-    </div>
+
+
   </section>
 
   </div><!-- /snap-container -->
@@ -245,7 +232,7 @@
     function resize() {
       var vw = window.innerWidth, vh = window.innerHeight;
       var z = Math.min(vw / CARD_W, vh / CARD_H);
-      document.querySelectorAll('.card, .side-decor').forEach(function(c) { c.style.zoom = z; });
+      document.querySelectorAll('.card').forEach(function(c) { c.style.zoom = z; });
       document.querySelectorAll('.page-wrap').forEach(function(w) { w.style.height = vh + 'px'; });
       var sc = document.getElementById('snap-container');
       if (sc) sc.style.height = vh + 'px';

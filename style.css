@@ -336,25 +336,3 @@ select.rsvp-inline:focus {
 .rsvp-status.success { color: #66bb6a; }
 .rsvp-status.error   { color: #ef5350; }
 
-/* ---- Landscape side flowers ---- */
-.side-decor {
-  display: none;
-  position: absolute;
-  width: 398px;
-  aspect-ratio: 105 / 148;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: visible;
-  pointer-events: none;
-  z-index: 1;
-}
-.side-decor .el { overflow: hidden; }
-.side-decor .el img {
-  filter: hue-rotate(-55deg) saturate(1.4);
-}
-
-@media (orientation: landscape) {
-  .page-wrap { position: relative; }
-  .side-decor { display: block; }
-}
