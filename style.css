@@ -350,6 +350,9 @@ select.rsvp-inline:focus {
   z-index: 1;
 }
 .side-decor .el { overflow: hidden; }
+.side-decor .el img {
+  filter: hue-rotate(-55deg) saturate(1.4);
+}
 
 @media (orientation: landscape) {
   .page-wrap { position: relative; }
